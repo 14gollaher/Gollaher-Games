@@ -1,0 +1,4 @@
+P:\Git\Smash-Attack\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\WiiUSmash4.csprojResolveAssemblyReference.cache
+P:\Git\Smash-Attack\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\WiiUSmash4.csproj.CoreCompileInputs.cache
+P:\Git\Smash-Attack\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\WiiUSmash4.AssemblyInfoInputs.cache
+P:\Git\Smash-Attack\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\WiiUSmash4.AssemblyInfo.cs
