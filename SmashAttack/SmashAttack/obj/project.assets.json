@@ -4746,6 +4746,16 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
+      },
+      "GollaherGames.BusinessLogic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/GollaherGames.BusinessLogic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GollaherGames.BusinessLogic.dll": {}
+        }
       }
     }
   },
@@ -12524,16 +12534,22 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "GollaherGames.BusinessLogic/1.0.0": {
+      "type": "project",
+      "path": "../RequestHelper/GollaherGames.BusinessLogic.csproj",
+      "msbuildProject": "../RequestHelper/GollaherGames.BusinessLogic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "GollaherGames.BusinessLogic >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mgollah\\.nuget\\packages\\": {},
+    "C:\\Users\\Matthew\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -12542,17 +12558,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "P:\\Git\\Smash-Attack\\SmashAttack\\SmashAttack\\WiiUSmash4.csproj",
-      "projectName": "WiiUSmash4",
-      "projectPath": "P:\\Git\\Smash-Attack\\SmashAttack\\SmashAttack\\WiiUSmash4.csproj",
-      "packagesPath": "C:\\Users\\mgollah\\.nuget\\packages\\",
-      "outputPath": "P:\\Git\\Smash-Attack\\SmashAttack\\SmashAttack\\obj\\",
+      "projectUniqueName": "D:\\Software Development\\MatthewGollaher\\SmashAttack\\SmashAttack\\GollaherGames.csproj",
+      "projectName": "GollaherGames",
+      "projectPath": "D:\\Software Development\\MatthewGollaher\\SmashAttack\\SmashAttack\\GollaherGames.csproj",
+      "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
+      "outputPath": "D:\\Software Development\\MatthewGollaher\\SmashAttack\\SmashAttack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\mgollah\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12560,14 +12576,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://daknuget.daktronics.lan/DakNuget/nuget": {},
-        "http://daknuget.daktronics.lan/Legacy/nuget": {},
-        "http://daknuget.daktronics.lan/TestTools/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Software Development\\MatthewGollaher\\SmashAttack\\RequestHelper\\GollaherGames.BusinessLogic.csproj": {
+              "projectPath": "D:\\Software Development\\MatthewGollaher\\SmashAttack\\RequestHelper\\GollaherGames.BusinessLogic.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

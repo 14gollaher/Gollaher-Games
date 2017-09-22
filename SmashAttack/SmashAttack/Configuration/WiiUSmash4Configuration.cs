@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace GollaherHangouts
+﻿namespace GollaherGames.WiiUSmash4
 {
     public class WiiUSmash4Configuration
     {
-        public string BaseUrl { get; set; }
+        public string MatthewGollaherService { get; set; }
     }
 }

@@ -9,9 +9,10 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/Scripts/site.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/Scripts/Shared/*.js",
+      "wwwroot/Scripts/WiiUSmash4/Fighters/*.js"
     ],
     // Optionally specify minification options
     "minify": {

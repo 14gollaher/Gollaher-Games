@@ -1,10 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WiiUSmash4;
 
-namespace WiiUSmash4.Test
+namespace GollaherGames.WiiUSmash4.Test
 {
     [TestClass]
-    public class FighterController
+    public class FighterControllerTest
     {
         [TestMethod]
         public void GetFighter_Test()

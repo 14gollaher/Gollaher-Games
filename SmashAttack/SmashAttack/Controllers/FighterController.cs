@@ -4,32 +4,41 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using Newtonsoft.Json;
+using GollaherGames.BusinessLogic;
 
-namespace WiiUSmash4
+namespace GollaherGames.WiiUSmash4
 {
+    [Area("WiiUSmash4")]
     public class FighterController : Controller
     {
-        public IActionResult Index()
+        private readonly WiiUSmash4Configuration _configuration;
+
+        public FighterController(WiiUSmash4Configuration configuration)
         {
-            return View();
+            _configuration = configuration;
         }
 
-        public Fighter GetFighter(int id)
+        public IActionResult Index( )
+        {
+            ViewBag.MatthewGollaherService = _configuration.MatthewGollaherService;
+            return View("~/Views/WiiUSmash4/Fighter/index.cshtml");
+        }
+
+        public string GetFighter(int fighterId)
         {
             try
             {
-                string ApiBaseUrl = Configuration["Acm:AcmDbConnectionString"];
-
-                string url = employeeMicroservice + "Employee/GetEmployeeUserName?employeeNumber=" + employeeNumber;
-                HttpWebRequest request = MicroserviceRequestHelper.CreateGetRequest(url);
-                string response = MicroserviceRequestHelper.MicroserviceCall(request);
+                string url = _configuration.MatthewGollaherService + "wiiusmash4/fighter/" + fighterId;
+                HttpWebRequest request = RequestHelper.CreateGetRequest(url);
+                string response = RequestHelper.ServiceCall(request);
 
                 return JsonConvert.DeserializeObject<string>(response);
             }
             catch (Exception ex)
             {
-                string timestamp;
-                ExceptionHelper.HandleExceptionWrapper(ex, "Log Only", out timestamp);
+                Console.WriteLine(ex.ToString());
                 throw ex;
             }
         }

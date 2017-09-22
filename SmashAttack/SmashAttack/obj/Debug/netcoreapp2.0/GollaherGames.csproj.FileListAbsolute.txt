@@ -1,0 +1,13 @@
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.deps.json
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.runtimeconfig.json
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.runtimeconfig.dev.json
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.dll
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.pdb
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.dll
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\bin\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.pdb
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\GollaherGames.csprojResolveAssemblyReference.cache
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\GollaherGames.csproj.CoreCompileInputs.cache
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\GollaherGames.AssemblyInfoInputs.cache
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\GollaherGames.AssemblyInfo.cs
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\GollaherGames.dll
+D:\Software Development\MatthewGollaher\SmashAttack\SmashAttack\obj\Debug\netcoreapp2.0\GollaherGames.pdb

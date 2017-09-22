@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.iterable"
+    ],
+    "target": "es5"
+  },
+  "files": [
+    "Shared/PageTools.ts",
+    "WiiUSmash4/Fighter/FighterViewModel.ts",
+    "WiiUSmash4/Fighter/Icon.ts",
+    "Typings/knockout.d.ts",
+    "Typings/jquery.d.ts"
+  ],
+  "compileOnSave": true
+}

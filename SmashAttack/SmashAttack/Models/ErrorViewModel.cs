@@ -1,6 +1,6 @@
 using System;
 
-namespace GollaherHangouts
+namespace GollaherGames
 {
     public class ErrorViewModel
     {
