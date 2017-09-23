@@ -1,8 +1,0 @@
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\bin\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.deps.json
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\bin\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.dll
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\bin\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.pdb
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\obj\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.csproj.CoreCompileInputs.cache
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\obj\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.AssemblyInfoInputs.cache
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\obj\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.AssemblyInfo.cs
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\obj\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.dll
-D:\Software Development\MatthewGollaher\SmashAttack\RequestHelper\obj\Debug\netcoreapp2.0\GollaherGames.BusinessLogic.pdb
