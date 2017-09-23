@@ -1,0 +1,46 @@
+﻿
+<body>
+    <div class="panel panel-primary no-border">
+        <div class="panel-heading">
+            <h3 class="panel-title">Character Selection</h3>
+        </div>
+        <row>
+            <div class="container">
+                <div class="row">
+                    <!-- ko foreach: Cards -->
+                    <div class="card col-sm-3">
+                        <img class="card-img-top" data-bind="attr:{ src: PortraitUrl }" alt="Fighter Picture">
+                        <div class="card-block">
+                            <h4 class="card-title" data-bind="text: Name"></h4>
+                            <p class="card-text" data-bind="text: Title"></p>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    
+                </div>
+            </div>
+        </row>
+       
+    </div>
+</body>
+
+
+<script src="~/lib/knockout/dist/knockout.js"></script>
+<script src="~/Scripts/WiiUSmash4/Fighter/CardModel.js"></script>
+<script src="~/Scripts/WiiUSmash4/Fighter/FighterViewModel.js"></script>
+
+@section Scripts
+    {
+    <script>
+        var GollaherGamesService = "@ViewBag.GollaherGamesService";
+
+        var viewModel;
+
+        $(function () {
+            viewModel = new Fighter.FighterViewModel();
+            ko.applyBindings(viewModel);
+        });
+    </script>
+}
+
+

@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/GollaherGames/GollaherGames/obj
+/GollaherGames/GollaherGames/bin/Debug/netcoreapp2.0
+/.vs
+/GollaherGames/.vs
+/GollaherGames/GollaherGames.BusinessLogic/obj
+/GollaherGames/GollaherGames.BusinessLogic/bin/Debug/netcoreapp2.0
