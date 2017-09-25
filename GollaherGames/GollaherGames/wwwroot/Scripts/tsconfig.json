@@ -12,11 +12,14 @@
     "target": "es5"
   },
   "files": [
+    "Typings/knockout.d.ts",
+    "Typings/jquery.d.ts",
     "Shared/PageTools.ts",
     "WiiUSmash4/Fighter/FighterViewModel.ts",
     "WiiUSmash4/Fighter/CardModel.ts",
-    "Typings/knockout.d.ts",
-    "Typings/jquery.d.ts"
+    "WiiUSmash4/Fighter/Attributes.ts",
+    "WiiUSmash4/Fighter/MoveModel.ts",
+    "WiiUSmash4/Fighter/FighterModel.ts"
   ],
   "compileOnSave": true
 }

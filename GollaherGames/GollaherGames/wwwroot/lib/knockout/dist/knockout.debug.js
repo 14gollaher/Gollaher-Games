@@ -1,5 +1,5 @@
 /*!
- * Knockout JavaScript library v3.4.2
+ * Knockout JavaScript library v3.4.1
  * (c) The Knockout.js team - http://knockoutjs.com/
  * License: MIT (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -45,7 +45,7 @@ ko.exportSymbol = function(koPath, object) {
 ko.exportProperty = function(owner, publicName, object) {
     owner[publicName] = object;
 };
-ko.version = "3.4.2";
+ko.version = "3.4.1";
 
 ko.exportSymbol('version', ko.version);
 // For any options that may affect various areas of Knockout and aren't directly associated with data binding.
@@ -1189,20 +1189,11 @@ ko.extenders = {
         if (!target._deferUpdates) {
             target._deferUpdates = true;
             target.limit(function (callback) {
-                var handle,
-                    ignoreUpdates = false;
+                var handle;
                 return function () {
-                    if (!ignoreUpdates) {
-                        ko.tasks.cancel(handle);
-                        handle = ko.tasks.schedule(callback);
-
-                        try {
-                            ignoreUpdates = true;
-                            target['notifySubscribers'](undefined, 'dirty');
-                        } finally {
-                            ignoreUpdates = false;
-                        }
-                    }
+                    ko.tasks.cancel(handle);
+                    handle = ko.tasks.schedule(callback);
+                    target['notifySubscribers'](undefined, 'dirty');
                 };
             });
         }
@@ -1288,7 +1279,7 @@ function limitNotifySubscribers(value, event) {
 
 var ko_subscribable_fn = {
     init: function(instance) {
-        instance._subscriptions = { "change": [] };
+        instance._subscriptions = {};
         instance._versionNumber = 1;
     },
 
@@ -1320,10 +1311,9 @@ var ko_subscribable_fn = {
             this.updateVersion();
         }
         if (this.hasSubscriptionsForEvent(event)) {
-            var subs = event === defaultEvent && this._changeSubscriptions || this._subscriptions[event].slice(0);
             try {
                 ko.dependencyDetection.begin(); // Begin suppressing dependency detection (by setting the top frame to undefined)
-                for (var i = 0, subscription; subscription = subs[i]; ++i) {
+                for (var a = this._subscriptions[event].slice(0), i = 0, subscription; subscription = a[i]; ++i) {
                     // In case a subscription was disposed during the arrayForEach cycle, check
                     // for isDisposed on each subscription before invoking its callback
                     if (!subscription.isDisposed)
@@ -1349,7 +1339,7 @@ var ko_subscribable_fn = {
 
     limit: function(limitFunction) {
         var self = this, selfIsObservable = ko.isObservable(self),
-            ignoreBeforeChange, notifyNextChange, previousValue, pendingValue, beforeChange = 'beforeChange';
+            ignoreBeforeChange, previousValue, pendingValue, beforeChange = 'beforeChange';
 
         if (!self._origNotifySubscribers) {
             self._origNotifySubscribers = self["notifySubscribers"];
@@ -1362,19 +1352,15 @@ var ko_subscribable_fn = {
             // If an observable provided a reference to itself, access it to get the latest value.
             // This allows computed observables to delay calculating their value until needed.
             if (selfIsObservable && pendingValue === self) {
-                pendingValue = self._evalIfChanged ? self._evalIfChanged() : self();
+                pendingValue = self();
             }
-            var shouldNotify = notifyNextChange || self.isDifferent(previousValue, pendingValue);
-
-            notifyNextChange = ignoreBeforeChange = false;
-
-            if (shouldNotify) {
+            ignoreBeforeChange = false;
+            if (self.isDifferent(previousValue, pendingValue)) {
                 self._origNotifySubscribers(previousValue = pendingValue);
             }
         });
 
         self._limitChange = function(value) {
-            self._changeSubscriptions = self._subscriptions[defaultEvent].slice(0);
             self._notificationIsPending = ignoreBeforeChange = true;
             pendingValue = value;
             finish();
@@ -1383,11 +1369,6 @@ var ko_subscribable_fn = {
             if (!ignoreBeforeChange) {
                 previousValue = value;
                 self._origNotifySubscribers(value, beforeChange);
-            }
-        };
-        self._notifyNextChangeIfValueIsDifferent = function() {
-            if (self.isDifferent(previousValue, self.peek(true /*evaluate*/))) {
-                notifyNextChange = true;
             }
         };
     },
@@ -1879,7 +1860,6 @@ ko.computed = ko.dependentObservable = function (evaluatorFunctionOrOptions, eva
     var state = {
         latestValue: undefined,
         isStale: true,
-        isDirty: true,
         isBeingEvaluated: false,
         suppressDisposalUntilDisposeWhenReturnsFalse: false,
         isDisposed: false,
@@ -1907,7 +1887,7 @@ ko.computed = ko.dependentObservable = function (evaluatorFunctionOrOptions, eva
         } else {
             // Reading the value
             ko.dependencyDetection.registerDependency(computedObservable);
-            if (state.isDirty || (state.isSleeping && computedObservable.haveDependenciesChanged())) {
+            if (state.isStale || (state.isSleeping && computedObservable.haveDependenciesChanged())) {
                 computedObservable.evaluateImmediate();
             }
             return state.latestValue;
@@ -1997,10 +1977,6 @@ function computedBeginDependencyDetectionCallback(subscribable, id) {
             // Brand new subscription - add it
             computedObservable.addDependencyTracking(id, subscribable, state.isSleeping ? { _target: subscribable } : computedObservable.subscribeToDependency(subscribable));
         }
-        // If the observable we've accessed has a pending notification, ensure we get notified of the actual final value (bypass equality checks)
-        if (subscribable._notificationIsPending) {
-            subscribable._notifyNextChangeIfValueIsDifferent();
-        }
     }
 }
 
@@ -2023,7 +1999,7 @@ var computedFn = {
         for (id in dependencyTracking) {
             if (dependencyTracking.hasOwnProperty(id)) {
                 dependency = dependencyTracking[id];
-                if ((this._evalDelayed && dependency._target._notificationIsPending) || dependency._target.hasChanged(dependency._version)) {
+                if (dependency._target.hasChanged(dependency._version)) {
                     return true;
                 }
             }
@@ -2032,19 +2008,16 @@ var computedFn = {
     markDirty: function () {
         // Process "dirty" events if we can handle delayed notifications
         if (this._evalDelayed && !this[computedState].isBeingEvaluated) {
-            this._evalDelayed(false /*isChange*/);
+            this._evalDelayed();
         }
     },
     isActive: function () {
-        var state = this[computedState];
-        return state.isDirty || state.dependenciesCount > 0;
+        return this[computedState].isStale || this[computedState].dependenciesCount > 0;
     },
     respondToChange: function () {
         // Ignore "change" events if we've already scheduled a delayed notification
         if (!this._notificationIsPending) {
             this.evaluatePossiblyAsync();
-        } else if (this[computedState].isDirty) {
-            this[computedState].isStale = true;
         }
     },
     subscribeToDependency: function (target) {
@@ -2071,7 +2044,7 @@ var computedFn = {
                 computedObservable.evaluateImmediate(true /*notifyChange*/);
             }, throttleEvaluationTimeout);
         } else if (computedObservable._evalDelayed) {
-            computedObservable._evalDelayed(true /*isChange*/);
+            computedObservable._evalDelayed();
         } else {
             computedObservable.evaluateImmediate(true /*notifyChange*/);
         }
@@ -2189,14 +2162,13 @@ var computedFn = {
                 ko.utils.objectForEach(dependencyDetectionContext.disposalCandidates, computedDisposeDependencyCallback);
             }
 
-            state.isStale = state.isDirty = false;
+            state.isStale = false;
         }
     },
-    peek: function (evaluate) {
-        // By default, peek won't re-evaluate, except while the computed is sleeping or to get the initial value when "deferEvaluation" is set.
-        // Pass in true to evaluate if needed.
+    peek: function () {
+        // Peek won't re-evaluate, except while the computed is sleeping or to get the initial value when "deferEvaluation" is set.
         var state = this[computedState];
-        if ((state.isDirty && (evaluate || !state.dependenciesCount)) || (state.isSleeping && this.haveDependenciesChanged())) {
+        if ((state.isStale && !state.dependenciesCount) || (state.isSleeping && this.haveDependenciesChanged())) {
             this.evaluateImmediate();
         }
         return state.latestValue;
@@ -2204,27 +2176,15 @@ var computedFn = {
     limit: function (limitFunction) {
         // Override the limit function with one that delays evaluation as well
         ko.subscribable['fn'].limit.call(this, limitFunction);
-        this._evalIfChanged = function () {
-            if (this[computedState].isStale) {
-                this.evaluateImmediate();
-            } else {
-                this[computedState].isDirty = false;
-            }
-            return this[computedState].latestValue;
-        };
-        this._evalDelayed = function (isChange) {
+        this._evalDelayed = function () {
             this._limitBeforeChange(this[computedState].latestValue);
 
-            // Mark as dirty
-            this[computedState].isDirty = true;
-            if (isChange) {
-                this[computedState].isStale = true;
-            }
+            this[computedState].isStale = true; // Mark as dirty
 
-            // Pass the observable to the "limit" code, which will evaluate it when
+            // Pass the observable to the "limit" code, which will access it when
             // it's time to do the notification.
             this._limitChange(this);
-        };
+        }
     },
     dispose: function () {
         var state = this[computedState];
@@ -2241,7 +2201,6 @@ var computedFn = {
         state.dependenciesCount = 0;
         state.isDisposed = true;
         state.isStale = false;
-        state.isDirty = false;
         state.isSleeping = false;
         state.disposeWhenNodeIsRemoved = null;
     }
@@ -2257,6 +2216,7 @@ var pureComputedOverrides = {
             if (state.isStale || computedObservable.haveDependenciesChanged()) {
                 state.dependencyTracking = null;
                 state.dependenciesCount = 0;
+                state.isStale = true;
                 if (computedObservable.evaluateImmediate()) {
                     computedObservable.updateVersion();
                 }

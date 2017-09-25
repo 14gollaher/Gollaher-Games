@@ -5364,6 +5364,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
 
     [n: number]: TElement;
+
+    treegrid(option?: any): any;
 }
 
 declare namespace JQuery {

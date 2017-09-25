@@ -1,46 +1,217 @@
-﻿
-<body>
-    <div class="panel panel-primary no-border">
-        <div class="panel-heading">
-            <h3 class="panel-title">Character Selection</h3>
+﻿<body>
+    <div class="container">
+        <h3 class="panel-title">Character Selection</h3>
+
+        <div class="search">
+            <span class="fa fa-search"></span>
+            <input placeholder="Filter" data-bind="textInput: SearchQuery">
         </div>
-        <row>
-            <div class="container">
-                <div class="row">
-                    <!-- ko foreach: Cards -->
-                    <div class="card col-sm-3">
-                        <img class="card-img-top" data-bind="attr:{ src: PortraitUrl }" alt="Fighter Picture">
-                        <div class="card-block">
-                            <h4 class="card-title" data-bind="text: Name"></h4>
-                            <p class="card-text" data-bind="text: Title"></p>
-                        </div>
-                    </div>
-                    <!-- /ko -->
-                    
+        <div class="row" style="margin: 10px 2px;">
+            <!-- ko foreach: FilteredCards -->
+            <div class="card col-sm-2" data-bind="click: function() {viewModel.SetSelectedFighter($data.FighterId());}">
+                <img class="card-img-top" data-bind="attr:{ src: PortraitUrl }" alt="Fighter Picture">
+                <div class="card-block">
+                    <h4 class="card-title" data-bind="text: Name"></h4>
                 </div>
             </div>
-        </row>
-       
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" data-bind="modal: DisplayFighterDetails">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" data-bind="text: SelectedFighter().Name"></h2><br />
+                    <img class="fighter-img" data-bind="attr:{ src: SelectedFighter().PortraitUrl }" alt="Fighter Ability Frame Picture">
+                    <h4 class="modal-title" data-bind="text: SelectedFighter().Title"></h4><br />
+
+                </div>
+                <div class="modal-body no-select" >
+                    <table class="tree">
+                        <tr class="treegrid-0">
+                            <td>Ground Attacks</td>
+                        </tr>
+                        <!-- ko foreach: SelectedFighter().Attacks -->
+                        <tr data-bind="attr:{'class':'treegrid-' + ($index() + 1) + ' treegrid-parent-' + 0}">
+                            <td data-bind="text: Name"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Hitbox Active Range:</td>
+                            <td data-bind="text: HitboxActiveRange"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>First Actionable Frame:</td>
+                            <td data-bind="text: FirstActionableFrame"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Base Damage:</td>
+                            <td data-bind="text: BaseDamage"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Shield Damage:</td>
+                            <td data-bind="text: ShieldDamage"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Angle:</td>
+                            <td data-bind="text: Angle"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Base Knock Back:</td>
+                            <td data-bind="text: BaseKnockBack"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Weight Base Knock Back:</td>
+                            <td data-bind="text: WeightBaseKnockBack"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>Knock Back Growth:</td>
+                            <td data-bind="text: KnockBackGrowth"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td><hr /></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td data-bind="text: 'Frame: ' + (SelectedAbilityFramePictureIndex() + 1) + '/' + AbilityFramePictureUrls().length"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + ($index() + 1)}">
+                            <td>
+                                <i data-bind="click: function() {viewModel.DecrementCurrentSelectedAbilityFrame($data);}" class="fa fa-arrow-left fa-2x ability-arrow" aria-hidden="true"></i>
+                                <img class="ability-img" data-bind="attr:{ src: SelectedAbilityFramePictureUrl }" alt="Fighter Ability Frame Picture">
+                                <i data-bind="click: function() {viewModel.IncrementCurrentSelectedAbilityFrame($data);}" class="fa fa-arrow-right fa-2x ability-arrow" aria-hidden="true"></i>
+                            </td> 
+                        </tr>
+                        <!-- /ko -->
+                        <tr class="treegrid-100">
+                            <td>Aerial Attacks</td>
+                        </tr>
+                        <!-- ko foreach: SelectedFighter().Aerials -->
+                        <tr data-bind="attr:{'class':'treegrid-' + 10 + ($index() + 1) + ' treegrid-parent-' + 100}">
+                            <td data-bind="text: Name"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Hitbox Active Range:</td>
+                            <td data-bind="text: HitboxActiveRange"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>First Actionable Frame:</td>
+                            <td data-bind="text: FirstActionableFrame"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Base Damage:</td>
+                            <td data-bind="text: BaseDamage"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Shield Damage:</td>
+                            <td data-bind="text: ShieldDamage"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Angle:</td>
+                            <td data-bind="text: Angle"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Base Knock Back:</td>
+                            <td data-bind="text: BaseKnockBack"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Weight Base Knock Back:</td>
+                            <td data-bind="text: WeightBaseKnockBack"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Knock Back Growth:</td>
+                            <td data-bind="text: KnockBackGrowth"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Landing Lag:</td>
+                            <td data-bind="text: LandingLag"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 10 + ($index() + 1)}">
+                            <td>Auto Cancel Frames:</td>
+                            <td data-bind="text: AutoCancelFrames"></td>
+                        </tr>
+                        <!-- /ko -->
+                        <tr class="treegrid-200">
+                            <td>Special Attacks</td>
+                        </tr>
+                        <!-- ko foreach: SelectedFighter().Specials -->
+                        <tr data-bind="attr:{'class':'treegrid-' + 20 + ($index() + 1) + ' treegrid-parent-' + 200}">
+                            <td data-bind="text: Name"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Hitbox Active Range:</td>
+                            <td data-bind="text: HitboxActiveRange"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>First Actionable Frame:</td>
+                            <td data-bind="text: FirstActionableFrame"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Base Damage:</td>
+                            <td data-bind="text: BaseDamage"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Shield Damage:</td>
+                            <td data-bind="text: ShieldDamage"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Angle:</td>
+                            <td data-bind="text: Angle"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Base Knock Back:</td>
+                            <td data-bind="text: BaseKnockBack"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Weight Base Knock Back:</td>
+                            <td data-bind="text: WeightBaseKnockBack"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 20 + ($index() + 1)}">
+                            <td>Knock Back Growth:</td>
+                            <td data-bind="text: KnockBackGrowth"></td>
+                        </tr>
+                        <!-- /ko -->
+                        <tr class="treegrid-300">
+                            <td>Grabs</td>
+                        </tr>
+                        <!-- ko foreach: SelectedFighter().Grabs -->
+                        <tr data-bind="attr:{'class':'treegrid-' + 30 + ($index() + 1) + ' treegrid-parent-' + 300}">
+                            <td data-bind="text: Name"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 30 + ($index() + 1)}">
+                            <td>Hitbox Active Range:</td>
+                            <td data-bind="text: HitboxActiveRange"></td>
+                        </tr>
+                        <tr data-bind="attr:{'class':'treegrid-parent-' + 30 + ($index() + 1)}">
+                            <td>First Actionable Frame:</td>
+                            <td data-bind="text: FirstActionableFrame"></td>
+                        </tr>
+                        <!-- /ko -->
+                    </table>
+                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xs">Close</button>
+            </div>
+            </div>
+        </div>
     </div>
 </body>
 
-
-<script src="~/lib/knockout/dist/knockout.js"></script>
 <script src="~/Scripts/WiiUSmash4/Fighter/CardModel.js"></script>
+<script src="~/Scripts/WiiUSmash4/Fighter/MoveModel.js"></script>
+<script src="~/Scripts/WiiUSmash4/Fighter/Attributes.js"></script>
+<script src="~/Scripts/WiiUSmash4/Fighter/FighterModel.js"></script>
 <script src="~/Scripts/WiiUSmash4/Fighter/FighterViewModel.js"></script>
 
 @section Scripts
     {
     <script>
         var GollaherGamesService = "@ViewBag.GollaherGamesService";
-
         var viewModel;
-
         $(function () {
             viewModel = new Fighter.FighterViewModel();
             ko.applyBindings(viewModel);
         });
-    </script>
+
+        </script>
 }
-
-

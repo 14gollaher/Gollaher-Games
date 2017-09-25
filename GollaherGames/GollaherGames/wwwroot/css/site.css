@@ -1,35 +1,104 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿.container {
+    cursor: pointer;
+    max-width: 1550px;
+    margin-top: 75px;
+    border-radius: 25px;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+    .container h3 {
+        cursor: default;
     }
+
+    .container .card-img-top {
+        margin-top: 3px;
+    }
+
+    .container .card {
+        background-color: lightgray;
+    }
+
+    .container .card-title {
+        font-size: 1.75vw;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    @media (max-width: 575px) {
+        .container .card-title {
+            font-size: 5.5vw;
+            white-space: nowrap;
+            text-align: center;
+        }
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: url(../images/Loading.gif) no-repeat scroll center center black;
+        opacity: .6;
+        z-index: 1100;
+    }
+
+.search {
+    position: relative;
+    color: #aaa;
+    font-size: 16px;
+}
+
+    .search input {
+        width: 250px;
+        height: 32px;
+        background: #fcfcfc;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        box-shadow: 0 0 3px #ccc, 0 10px 15px #ebebeb inset;
+    }
+
+    .search input {
+        text-indent: 32px;
+    }
+
+    .search .fa-search {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+.ability-img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 200px;
+}
+
+fighter-img {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+}
+
+.ability-arrow {
+    cursor: pointer;
+}
+
+.modal-lg {
+    max-width: 80%;
+}
+
+.modal-header {
+    justify-content: inherit; 
+    display: block; 
+    line-height: 0;
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

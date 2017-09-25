@@ -31,18 +31,12 @@ namespace GollaherGames
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //  name: "areaRoute",
-                //  template: "{area:exists}/{controller}/{action}");
                 routes.MapRoute(
                   name: "Home",
                   template: "{area=Home}/{controller=Home}/{action=Index}");

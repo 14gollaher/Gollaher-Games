@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Newtonsoft.Json;
@@ -20,10 +16,16 @@ namespace GollaherGames.WiiUSmash4
             _configuration = configuration;
         }
 
-        public IActionResult Index( )
+        public IActionResult Index()
         {
             ViewBag.GollaherGamesService = _configuration.GollaherGamesService;
             return View("~/Views/WiiUSmash4/Fighter.cshtml");
+        }
+
+        public IActionResult FighterDetail(int fighterId)
+        {
+            ViewBag.GollaherGamesService = _configuration.GollaherGamesService;
+            return View("~/Views/WiiUSmash4/FighterDetail.cshtml");
         }
 
         public string GetFighter(int fighterId)
@@ -41,20 +43,6 @@ namespace GollaherGames.WiiUSmash4
                 Console.WriteLine(ex.ToString());
                 throw ex;
             }
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
         }
     }
 }

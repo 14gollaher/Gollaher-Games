@@ -5,8 +5,13 @@
     "jquery": "2.2.0",
     "jquery-validation": "1.14.0",
     "jquery-validation-unobtrusive": "3.2.6",
-    "knockout": "v3.4.2",
     "moment": "2.18.1",
-    "bootstrap": "v4.0.0-beta"
+    "bootstrap": "v4.0.0-beta",
+    "knockout": "v3.4.1",
+    "font-awesome": "Font-Awesome#~4.7.0",
+    "jquery-treegrid": "0.3.0"
+  },
+  "resolutions": {
+    "knockout": "v3.4.1"
   }
 }
